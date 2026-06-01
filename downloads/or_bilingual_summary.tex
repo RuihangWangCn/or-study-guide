@@ -1,0 +1,635 @@
+\documentclass[11pt,a4paper]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+
+\definecolor{Ink}{HTML}{1F2937}
+\definecolor{Muted}{HTML}{526070}
+\definecolor{Teal}{HTML}{007C7C}
+\definecolor{Indigo}{HTML}{243B6B}
+\definecolor{Amber}{HTML}{C47A00}
+\definecolor{Soft}{HTML}{F4F7F6}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=Indigo,
+  urlcolor=Teal,
+  citecolor=Amber
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Operations Management Summary}
+\rhead{中英双语复习笔记}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[itemize]{topsep=2pt,itemsep=1pt,leftmargin=1.3em}
+\setlist[enumerate]{topsep=2pt,itemsep=1pt,leftmargin=1.5em}
+\renewcommand{\arraystretch}{1.2}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\term}[2]{\textbf{\textcolor{Teal}{#1}} \textcolor{Muted}{(#2)}}
+\newcommand{\cn}[1]{\textbf{中文：}#1}
+\newcommand{\en}[1]{\textbf{English:} #1}
+\newcommand{\focus}[1]{\textcolor{Amber}{\textbf{#1}}}
+
+\title{\textbf{Operations Research and Information System Management}\\
+\large 中英双语课程总结与复习提纲}
+\author{Based on OR Class 1-13 slides}
+\date{2026-05-31}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{课程总览 / Course Map}
+
+\begin{longtable}{@{}L{0.08\linewidth}L{0.40\linewidth}L{0.40\linewidth}@{}}
+\toprule
+\textbf{Class} & \textbf{中文重点} & \textbf{English Focus} \\
+\midrule
+1 & 课程介绍、评分、项目要求、参考书。 & Course orientation, grading, group project, references. \\
+2 & 运营管理基本概念：输入、转化、输出；系统设计与系统运行；模型和权衡。 & OM fundamentals: inputs, transformation, outputs; system design and operation decisions; models and trade-offs. \\
+3 & 竞争力、战略、订单资格要素/赢单要素、生产率。 & Competitiveness, strategy, order qualifiers/winners, productivity. \\
+4 & 预测（一）：定性预测、时间序列、移动平均、指数平滑、趋势和回归。 & Forecasting I: qualitative methods, time series, moving average, exponential smoothing, trend and regression. \\
+5 & 预测（二）：MAD、MSE、MAPE、控制图、跟踪信号、Excel 方法选择。 & Forecasting II: MAD, MSE, MAPE, control charts, tracking signal, Excel-based technique selection. \\
+6 & 产品与服务设计（一）：标准化、延迟差异化、模块化、可靠性、稳健设计。 & Product and service design I: standardization, delayed differentiation, modular design, reliability, robust design. \\
+7 & 产品与服务设计（二）：开发流程、并行工程、DFM、再制造、FMEA/FTA/VA/QFD/Kano。 & Product and service design II: development process, concurrent engineering, DFM, remanufacturing, FMEA/FTA/VA/QFD/Kano. \\
+8 & 产品与服务设计（三）：服务设计、服务蓝图、高/低接触服务。 & Product and service design III: service design, service blueprinting, high-contact vs. low-contact services. \\
+9 & 决策理论：不确定性、风险、EMV、决策树、EVPI、敏感性分析。 & Decision theory: uncertainty, risk, EMV, decision trees, EVPI, sensitivity analysis. \\
+10 & 产能规划（一）：产能度量、效率、利用率、产能缓冲、产能需求计算。 & Capacity planning I: capacity measures, efficiency, utilization, capacity cushion, processing requirements. \\
+11 & 产能规划（二）：服务产能、外包、瓶颈、规模经济、约束管理、成本-产量分析。 & Capacity planning II: service capacity, outsourcing, bottlenecks, economies of scale, constraints, cost-volume analysis. \\
+12 & 流程选择与设施布局（一）：流程类型、产品-流程矩阵、自动化、基础布局类型。 & Process selection and layout I: process types, product-process matrix, automation, basic layout types. \\
+13 & 流程选择与设施布局（二）：单元布局、生产线平衡、流程布局运输成本。 & Process selection and layout II: cellular layout, line balancing, process-layout transportation cost. \\
+\bottomrule
+\end{longtable}
+
+\section{运营管理基础 / Operations Management Basics}
+
+\term{运营管理}{Operations Management} 是把输入转化为产品、服务或信息输出的管理活动。\\
+\en{Operations management manages the transformation of inputs into outputs that create value.}
+
+\subsection{输入-转化-输出 / Input-Transformation-Output}
+\begin{itemize}
+  \item \cn{输入包括劳动力、设备、设施、原材料、时间，也包括知识、技能、客户关系和声誉。}
+  \item \en{Inputs include labor, equipment, facilities, raw materials, time, knowledge, skills, customer relationships, and reputation.}
+  \item \cn{输出包括产品、服务和信息。运营的目标是通过转化过程创造价值。}
+  \item \en{Outputs include products, services, and information. The transformation process should add value.}
+\end{itemize}
+
+\subsection{设计决策与运行决策 / Design vs. Operation Decisions}
+\begin{longtable}{L{0.45\linewidth}L{0.45\linewidth}}
+\toprule
+\textbf{系统设计决策 / System Design} & \textbf{系统运行决策 / System Operation} \\
+\midrule
+产能、选址、设施布局、产品/服务设计、设备购买与布置。 & 人员管理、库存控制、排程、项目管理、质量保证。 \\
+Strategic, long-term commitments that define system parameters. & Tactical and operational decisions that run the system day to day. \\
+\bottomrule
+\end{longtable}
+
+\subsection{模型与权衡 / Models and Trade-offs}
+\begin{itemize}
+  \item \term{模型}{Model}: 对现实的抽象和简化，用于组织信息、量化问题和进行 ``what-if'' 分析。
+  \item \term{权衡}{Trade-off}: 以放弃某一目标的一部分来换取另一目标，例如成本、质量、速度、柔性、库存之间的平衡。
+  \item \cn{模型不能保证最优决策；关键是理解用途、假设、限制和结果解释。}
+  \item \en{A model does not guarantee a good decision; managers must understand its purpose, assumptions, limitations, and interpretation.}
+\end{itemize}
+
+\section{竞争力、战略与生产率 / Competitiveness, Strategy, and Productivity}
+
+\subsection{竞争力与战略 / Competitiveness and Strategy}
+\term{竞争力}{Competitiveness} 指企业相对于竞争者满足顾客需求的有效程度。\\
+\term{运营战略}{Operations Strategy} 是与组织战略一致、用于指导运营职能的方案。
+
+\begin{itemize}
+  \item \term{订单资格要素}{Order Qualifiers}: 顾客认为进入备选集合所需的最低标准。
+  \item \term{赢单要素}{Order Winners}: 使产品或服务被顾客认为优于竞争者的特征。
+  \item \cn{战略形成通常包括：定义主要任务、评估独特能力、识别订单资格/赢单要素、确定企业定位。}
+  \item \en{Strategy formulation defines the primary task, assesses distinctive competencies, identifies qualifiers/winners, and positions the firm.}
+\end{itemize}
+
+\subsection{生产率 / Productivity}
+\[
+\text{Productivity}=\frac{\text{Outputs}}{\text{Inputs}}
+\]
+\[
+\text{Productivity Growth}=\frac{\text{Current Productivity}-\text{Previous Productivity}}{\text{Previous Productivity}}
+\]
+
+\begin{itemize}
+  \item \cn{单要素生产率只看一个输入，如每劳动小时产出。}
+  \item \en{Partial productivity uses one input, such as output per labor hour.}
+  \item \cn{多要素生产率使用多个输入，如劳动力+机器+资本。}
+  \item \en{Multifactor productivity uses multiple inputs, such as labor, machine, and capital.}
+  \item \cn{总生产率使用全部投入。}
+  \item \en{Total productivity compares goods/services produced with all inputs used.}
+\end{itemize}
+
+\section{预测 / Forecasting}
+
+\subsection{好预测的特征 / Features of Good Forecasts}
+\begin{itemize}
+  \item \cn{及时、准确、可靠、以有意义的单位表达、书面化、容易理解、成本有效。}
+  \item \en{Good forecasts are timely, accurate, reliable, meaningful, written, understandable, and cost-effective.}
+  \item \cn{预测通常假设过去的因果系统在未来仍有一定延续性。}
+  \item \en{Forecasting often assumes that the causal system in the past continues into the future.}
+\end{itemize}
+
+\subsection{预测过程 / Forecasting Process}
+\begin{enumerate}
+  \item 确定预测目的 / Determine the purpose.
+  \item 建立时间范围 / Establish the time horizon.
+  \item 选择预测技术 / Select a forecasting technique.
+  \item 收集并分析数据 / Gather and analyze data.
+  \item 做出预测 / Make the forecast.
+  \item 监控预测 / Monitor the forecast.
+\end{enumerate}
+
+\subsection{定性预测 / Qualitative Forecasting}
+\begin{longtable}{L{0.28\linewidth}L{0.32\linewidth}L{0.32\linewidth}}
+\toprule
+\textbf{方法 / Method} & \textbf{中文说明} & \textbf{English Note} \\
+\midrule
+Executive opinions & 高层管理者小组判断，快但可能受偏见影响。 & Senior managers' judgment; fast but can be biased. \\
+Sales force opinions & 销售人员接近客户，信息直接，但可能有激励偏差。 & Salespeople know customers directly, but incentives can bias estimates. \\
+Consumer survey & 问卷收集顾客意向，适合新产品，但成本高。 & Surveys collect customer intentions, useful for new products but costly. \\
+Delphi method & 多轮专家问卷，匿名反馈，减少从众压力。 & Iterative expert questionnaires with anonymous feedback to reduce group pressure. \\
+Outside opinions & 第三方或外部机构预测，省力但依赖外部质量。 & External expert or third-party forecasts; convenient but dependent on provider quality. \\
+\bottomrule
+\end{longtable}
+
+\subsection{时间序列方法 / Time-Series Methods}
+\[
+\text{Naive:}\quad F_t=A_{t-1}
+\]
+\[
+\text{Moving Average:}\quad F_t=\frac{A_{t-1}+A_{t-2}+\cdots+A_{t-n}}{n}
+\]
+\[
+\text{Weighted Moving Average:}\quad F_t=\sum_{i=1}^{n}w_i A_{t-i},\quad \sum_{i=1}^{n}w_i=1
+\]
+\[
+\text{Exponential Smoothing:}\quad F_t=F_{t-1}+\alpha(A_{t-1}-F_{t-1})
+\]
+
+\begin{itemize}
+  \item \cn{$\alpha$ 越小，预测越平滑但滞后更明显；$\alpha$ 越接近 1，预测越快跟随实际值。}
+  \item \en{A smaller $\alpha$ creates smoother forecasts with more lag; a larger $\alpha$ responds more quickly to actual demand.}
+  \item \cn{当序列有明显线性趋势时，用趋势投影或回归比简单平滑更合适。}
+  \item \en{When a clear linear trend exists, trend projection or regression is more appropriate than simple smoothing.}
+\end{itemize}
+
+\subsection{线性趋势与回归 / Linear Trend and Regression}
+\[
+F_t=a+bt
+\]
+\[
+b=\frac{n\sum ty-\sum t\sum y}{n\sum t^2-(\sum t)^2},
+\qquad
+a=\frac{\sum y-b\sum t}{n}
+\]
+\term{最小二乘法}{Least Squares} 选择使误差平方和最小的直线：
+\[
+SSE=\sum_{i=1}^{n}(y_i-\hat{y}_i)^2
+\]
+
+\subsection{预测误差 / Forecast Accuracy}
+\[
+e_t=A_t-F_t
+\]
+\[
+MAD=\frac{\sum |A_t-F_t|}{n}
+\]
+\[
+MSE=\frac{\sum (A_t-F_t)^2}{n-1}
+\]
+\[
+MAPE=\frac{100}{n}\sum\left|\frac{A_t-F_t}{A_t}\right|
+\]
+\[
+\text{Tracking Signal}=\frac{\sum (A_t-F_t)}{MAD}
+\]
+
+\begin{itemize}
+  \item \cn{MAD 线性惩罚误差，容易解释。}
+  \item \en{MAD weights errors linearly and is easy to interpret.}
+  \item \cn{MSE 对大误差惩罚更重，适合强调大偏差风险。}
+  \item \en{MSE penalizes large errors more strongly.}
+  \item \cn{MAPE 用百分比表达，便于跨规模比较。}
+  \item \en{MAPE expresses error as a percentage and supports comparison across scales.}
+  \item \cn{跟踪信号绝对值过大说明预测可能存在系统性偏差。}
+  \item \en{A large absolute tracking signal indicates possible forecast bias.}
+\end{itemize}
+
+\section{产品与服务设计 / Product and Service Design}
+
+\subsection{设计目标 / Design Objectives}
+\begin{itemize}
+  \item \cn{把顾客需求转化为产品/服务要求，并兼顾成本、质量、可制造性、可维护性、法律伦理和环境。}
+  \item \en{Translate customer needs into product/service requirements while balancing cost, quality, manufacturability, maintainability, legal, ethical, and environmental issues.}
+  \item \cn{设计既要面向市场，也要考虑运营能力。}
+  \item \en{Design must fit both market requirements and operational capabilities.}
+\end{itemize}
+
+\subsection{标准化、延迟差异化与模块化 / Standardization, Delayed Differentiation, and Modularity}
+\begin{longtable}{L{0.28\linewidth}L{0.32\linewidth}L{0.32\linewidth}}
+\toprule
+\textbf{概念 / Concept} & \textbf{中文} & \textbf{English} \\
+\midrule
+Standardization & 减少产品、服务或流程中的变化，带来规模效率和质量一致性。 & Reduces variety in products, services, or processes, improving efficiency and consistency. \\
+Component commonality & 在不同产品中使用相同零件，降低库存、采购和培训复杂度。 & Uses common components across products to reduce inventory, purchasing, and training complexity. \\
+Delayed differentiation & 先生产但不完全完成，等顾客偏好明确后再定制。 & Produces but postpones final completion until customer preferences are known. \\
+Modular design & 把组件划分为可替换模块，便于组装、维修和定制。 & Subdivides components into interchangeable modules for assembly, repair, and customization. \\
+Mass customization & 以标准化为基础提供一定程度的个性化。 & Provides customization while retaining standardized operations. \\
+\bottomrule
+\end{longtable}
+
+\subsection{可靠性与稳健设计 / Reliability and Robust Design}
+\begin{itemize}
+  \item \term{可靠性}{Reliability}: 产品、零件或系统在规定条件下完成预期功能的能力。
+  \item \term{失效}{Failure}: 产品、零件或系统没有按预期工作。
+  \item \term{稳健设计}{Robust Design}: 产品或服务能在广泛条件下保持一致性能。
+  \item \cn{提升可靠性的方式包括改进组件设计、生产/装配技术、测试、冗余、预防性维护和用户教育。}
+  \item \en{Reliability can be improved through component design, production/assembly techniques, testing, redundancy, preventive maintenance, and user education.}
+\end{itemize}
+
+\subsection{产品开发流程 / Product Development Process}
+\begin{enumerate}
+  \item Idea generation / 创意产生
+  \item Feasibility analysis / 可行性分析
+  \item Product specifications / 产品规格
+  \item Process specifications / 流程规格
+  \item Prototype development / 原型开发
+  \item Design review / 设计评审
+  \item Market test / 市场测试
+  \item Product introduction / 产品导入
+\end{enumerate}
+
+\subsection{并行工程与 DFM / Concurrent Engineering and DFM}
+\term{并行工程}{Concurrent Engineering} 让设计、运营、制造、营销等人员早期共同参与，减少 ``over-the-wall'' 顺序开发造成的返工。\\
+\term{可制造性设计}{Design for Manufacturing, DFM} 强调产品设计要便于经济制造、装配和质量控制。
+
+\subsection{设计评审工具 / Design Review Tools}
+\begin{longtable}{L{0.22\linewidth}L{0.36\linewidth}L{0.34\linewidth}}
+\toprule
+\textbf{工具 / Tool} & \textbf{中文用途} & \textbf{English Use} \\
+\midrule
+FMEA & 系统分析失效模式、原因、影响和纠正措施。 & Analyzes failure modes, causes, effects, and corrective actions. \\
+FTA & 用树形图分析故障之间的逻辑关系。 & Uses a tree diagram to analyze relationships among failures. \\
+VA & 识别并去除不必要功能或过高成本。 & Eliminates unnecessary features and excessive cost. \\
+QFD / House of Quality & 把顾客之声转化为设计特性、目标值和竞争评估。 & Translates the voice of the customer into design characteristics, targets, and competitive assessment. \\
+Kano Model & 区分基本需求、绩效需求和兴奋需求。 & Classifies basic, performance, and excitement requirements. \\
+\bottomrule
+\end{longtable}
+
+\subsection{服务设计 / Service Design}
+\begin{itemize}
+  \item \term{服务概念}{Service Concept}: 服务目的、目标市场和顾客体验。
+  \item \term{服务包}{Service Package}: 实物项目、感官利益和心理利益的组合。
+  \item \term{服务规格}{Service Specifications}: 从绩效规格转化为设计规格和交付规格。
+  \item \term{服务蓝图}{Service Blueprinting}: 描述和分析服务交付系统的流程工具。
+\end{itemize}
+
+\textbf{服务蓝图步骤 / Major Service Blueprinting Steps}
+\begin{enumerate}
+  \item Establish boundaries / 确定边界
+  \item Identify sequence of customer interactions / 识别顾客互动顺序
+  \item Develop time estimates / 估计时间
+  \item Identify potential failure points / 识别潜在失效点
+  \item Establish a time frame / 建立时间框架
+  \item Analyze profitability / 分析盈利性
+\end{enumerate}
+
+\section{决策理论 / Decision Theory}
+
+\subsection{决策要素 / Decision Elements}
+\begin{itemize}
+  \item \cn{自然状态：未来可能发生且影响收益的外部条件。}
+  \item \en{States of nature are future conditions that affect payoffs.}
+  \item \cn{备选方案：管理者可以选择的行动。}
+  \item \en{Alternatives are the actions available to the decision maker.}
+  \item \cn{收益表：每个方案在每个自然状态下的结果。}
+  \item \en{A payoff table records the result of each alternative under each state of nature.}
+\end{itemize}
+
+\subsection{决策环境 / Decision Environments}
+\begin{longtable}{L{0.25\linewidth}L{0.34\linewidth}L{0.33\linewidth}}
+\toprule
+\textbf{环境 / Environment} & \textbf{中文} & \textbf{English} \\
+\midrule
+Certainty & 相关参数确定，结果已知。 & Relevant parameters and outcomes are known. \\
+Uncertainty & 自然状态概率未知。 & Probabilities of states of nature are unknown. \\
+Risk & 自然状态概率已知或可估计。 & Probabilities are known or can be estimated. \\
+\bottomrule
+\end{longtable}
+
+\subsection{不确定性决策准则 / Criteria Under Uncertainty}
+\begin{itemize}
+  \item \term{Maximin}: 选择最坏结果中最好的方案；保守。
+  \item \term{Maximax}: 选择最好结果中最好的方案；乐观。
+  \item \term{Laplace}: 假设各自然状态等可能，选择平均收益最高的方案。
+  \item \term{Minimax Regret}: 先构造后悔值表，再选择最大后悔值最小的方案。
+\end{itemize}
+
+\subsection{风险下的期望值 / Expected Monetary Value}
+\[
+EMV_i=\sum_{s}p_s \times \text{Payoff}_{i,s}
+\]
+\cn{选择 $EMV$ 最大的方案。}\\
+\en{Choose the alternative with the highest EMV.}
+
+\subsection{决策树与完全信息价值 / Decision Trees and EVPI}
+\begin{itemize}
+  \item \cn{决策树从左往右读，从右往左分析。}
+  \item \en{Read a decision tree from left to right; analyze it from right to left.}
+  \item \cn{完全信息期望价值衡量若能提前知道自然状态，最多愿意为信息支付多少。}
+  \item \en{Expected Value of Perfect Information measures the maximum value of knowing the state of nature before deciding.}
+\end{itemize}
+\[
+EVPI=A-B
+\]
+\[
+A=\sum_s p_s \max_i(\text{Payoff}_{i,s}), \qquad
+B=\max_i EMV_i
+\]
+
+\subsection{敏感性分析 / Sensitivity Analysis}
+\cn{敏感性分析确定某一概率或参数在什么范围内变化时，当前最优方案仍保持最优。}\\
+\en{Sensitivity analysis determines the parameter or probability range over which the current best alternative remains best.}
+
+\section{产能规划 / Capacity Planning}
+
+\subsection{产能概念 / Capacity Concepts}
+\begin{longtable}{L{0.26\linewidth}L{0.34\linewidth}L{0.32\linewidth}}
+\toprule
+\textbf{概念 / Concept} & \textbf{中文} & \textbf{English} \\
+\midrule
+Design capacity & 系统设计允许的最大产出率或服务能力。 & Maximum designed output rate or service capacity. \\
+Effective capacity & 设计产能扣除维护、休息、废品等后的能力。 & Design capacity minus allowances such as maintenance, personal time, and scrap. \\
+Actual output & 实际实现的产出率，不能超过有效产能。 & Output actually achieved; cannot exceed effective capacity. \\
+Capacity cushion & 为需求不确定性预留的额外产能。 & Extra capacity used to offset demand uncertainty. \\
+\bottomrule
+\end{longtable}
+
+\[
+\text{Efficiency}=\frac{\text{Actual Output}}{\text{Effective Capacity}}
+\]
+\[
+\text{Utilization}=\frac{\text{Actual Output}}{\text{Design Capacity}}
+\]
+\[
+\text{Capacity Cushion}=100\%-\text{Utilization}
+\]
+
+\subsection{产能战略 / Capacity Strategies}
+\begin{itemize}
+  \item \term{Leading / Expansionist}: 在需求增长前提前增加产能，降低缺货风险但可能产能闲置。
+  \item \term{Following / Wait-and-see}: 等需求超过现有产能后再扩张，降低闲置但可能错失需求。
+  \item \term{Tracking}: 小幅、频繁增加产能，尽量贴近需求增长。
+\end{itemize}
+
+\subsection{产能规划步骤 / Capacity Planning Steps}
+\begin{enumerate}
+  \item Estimate future capacity requirements / 估计未来产能需求
+  \item Evaluate existing capacity / 评估现有产能
+  \item Identify alternatives / 识别备选方案
+  \item Conduct financial analysis / 财务分析
+  \item Assess qualitative issues / 评估定性因素
+  \item Select one alternative / 选择方案
+  \item Implement / 实施
+  \item Monitor results / 监控结果
+\end{enumerate}
+
+\subsection{加工需求计算 / Processing Requirements}
+\[
+NR=\frac{\sum_{i=1}^{k}p_iD_i}{T}
+\]
+\begin{itemize}
+  \item $p_i$: 每单位产品 $i$ 所需标准加工时间 / standard processing time per unit of product $i$.
+  \item $D_i$: 产品 $i$ 的需求量 / demand for product $i$.
+  \item $T$: 单台设备或单个资源可用时间 / available time per resource.
+  \item \cn{若题目给产能缓冲，需要把需求或需求产能按 $1+\text{cushion}$ 调整。}
+  \item \en{If a capacity cushion is required, adjust required capacity by $1+\text{cushion}$.}
+\end{itemize}
+
+\subsection{服务产能与瓶颈 / Service Capacity and Bottlenecks}
+\begin{itemize}
+  \item \cn{服务产能通常必须靠近顾客，且服务不能储存，因此时间匹配比制造更关键。}
+  \item \en{Service capacity often must be near customers and cannot be stored, so timing is critical.}
+  \item \term{瓶颈}{Bottleneck}: 限制系统总产出的工序或资源。
+  \item \cn{增加瓶颈之前的产能通常不能提高系统产出；应优先提升瓶颈本身或重排流程。}
+  \item \en{Adding capacity before a bottleneck usually does not improve total output; improve the bottleneck itself or rebalance the process.}
+\end{itemize}
+
+\subsection{约束管理 / Constraint Management}
+\begin{enumerate}
+  \item Identify the most pressing constraint / 识别最紧约束
+  \item Change the operation to achieve maximum benefit / 调整运作以最大化约束资源产出
+  \item Make sure other portions support the constraint / 让其他环节支持约束
+  \item Explore and evaluate alternatives / 探索替代方案
+  \item Repeat after one constraint is resolved / 一个约束解决后继续循环
+\end{enumerate}
+
+\subsection{成本-产量分析 / Cost-Volume Analysis}
+\[
+TC=FC+vc \times Q
+\]
+\[
+TR=R \times Q
+\]
+\[
+P=TR-TC=Q(R-vc)-FC
+\]
+\[
+Q_{BEP}=\frac{FC}{R-vc}
+\]
+\[
+Q_{\text{target profit}}=\frac{P_{\text{target}}+FC}{R-vc}
+\]
+
+\cn{多方案比较时，分别写出各方案总成本函数，求交点并结合可行产量区间判断。}\\
+\en{For multiple alternatives, write each total-cost function, solve intersections, and check feasible volume ranges.}
+
+\section{流程选择与设施布局 / Process Selection and Facility Layout}
+
+\subsection{流程类型 / Process Types}
+\begin{longtable}{L{0.22\linewidth}L{0.34\linewidth}L{0.34\linewidth}}
+\toprule
+\textbf{类型 / Type} & \textbf{中文} & \textbf{English} \\
+\midrule
+Job shop & 小批量、高变化、高柔性。 & Low volume, high variety, high flexibility. \\
+Batch & 中等产量和中等变化。 & Moderate volume and moderate variety. \\
+Repetitive / assembly line & 高产量、标准化产品或服务。 & High volume of standardized goods or services. \\
+Continuous flow & 极高产量、非离散产品。 & Very high volume of non-discrete goods. \\
+Project & 非常规、一次性、位置固定或复杂任务。 & Non-routine, one-time, often fixed-position or complex work. \\
+\bottomrule
+\end{longtable}
+
+\subsection{自动化 / Automation}
+\begin{itemize}
+  \item \term{固定自动化}{Fixed Automation}: 高产量、低变化，变更成本高。
+  \item \term{程序自动化}{Programmable Automation}: 计算机程序控制，适合小批量多品种。
+  \item \term{柔性自动化}{Flexible Automation}: 更广品种和中高产量，结合 CNC、CAM、CIM 等。
+  \item \cn{自动化优点是低变异、低单位变动成本；缺点是固定成本高、改变困难、可能影响士气。}
+  \item \en{Automation reduces variability and variable cost, but has high fixed cost, lower flexibility, and possible morale effects.}
+\end{itemize}
+
+\subsection{基础布局类型 / Basic Layout Types}
+\begin{longtable}{L{0.24\linewidth}L{0.36\linewidth}L{0.32\linewidth}}
+\toprule
+\textbf{布局 / Layout} & \textbf{适用情境} & \textbf{Key Trade-off} \\
+\midrule
+Product layout & 标准化加工、高产量、连续或重复流程。 & High output and low unit cost, but inflexible and vulnerable to shutdowns. \\
+Process layout & 多样化加工需求、作业车间或批量流程。 & Flexible and robust to equipment failure, but routing and material handling are complex. \\
+Fixed-position layout & 产品或项目太大、太重或不可移动，如基础设施。 & Product stays stationary; workers, materials, and equipment move. \\
+Cellular layout & 把机器按相似加工需求组成单元，兼顾柔性和效率。 & Groups part families to reduce movement and improve flow. \\
+\bottomrule
+\end{longtable}
+
+\subsection{生产线平衡 / Line Balancing}
+\term{生产线平衡}{Line Balancing} 是把任务分配到工作站，使各站时间要求尽量相等，以提高劳动力和设备利用率。
+
+\[
+\text{Output Rate}=\frac{OT}{CT}
+\]
+\[
+CT=\frac{OT}{D}
+\]
+\[
+N_{\min}=\left\lceil \frac{\sum t_i}{CT}\right\rceil
+\]
+\[
+\text{Percent Idle Time}=
+\frac{\text{Idle time per cycle}}{N \times CT}
+\]
+\[
+\text{Efficiency}=1-\text{Percent Idle Time}
+\]
+
+\begin{itemize}
+  \item $OT$: 每日可用作业时间 / operating time per day.
+  \item $CT$: 周期时间 / cycle time.
+  \item $D$: 目标产出 / desired output.
+  \item $N$: 工作站数量 / number of workstations.
+  \item \cn{分配任务时必须满足前置关系，并且任务时间不能超过当前工作站剩余时间。}
+  \item \en{Task assignment must respect precedence and fit within the remaining station time.}
+\end{itemize}
+
+\subsection{流程布局成本 / Process Layout Transportation Cost}
+\[
+\text{Total Load-Distance Cost}=\sum_{i<j}F_{ij}D_{ij}C_{ij}
+\]
+\begin{itemize}
+  \item $F_{ij}$: 部门 $i,j$ 的物流量 / workflow between departments.
+  \item $D_{ij}$: 分配位置之间的距离 / distance between assigned locations.
+  \item $C_{ij}$: 单位运输成本 / unit movement cost. 若题目未给，可默认为 1。
+  \item \cn{目标是把物流量大的部门放得更近，最小化运输时间、距离或成本。}
+  \item \en{The goal is to place high-flow departments closer together and minimize travel time, distance, or cost.}
+\end{itemize}
+
+\section{高频计算模板 / Calculation Templates}
+
+\subsection{预测题 / Forecasting Problem}
+\begin{enumerate}
+  \item \cn{写出实际值 $A_t$、预测值 $F_t$ 和误差 $e_t=A_t-F_t$。}
+  \item \cn{根据题目选择 naive、MA、WMA、exponential smoothing 或 trend。}
+  \item \cn{计算 MAD/MSE/MAPE 并比较方法。}
+  \item \en{Write actuals, forecasts, and errors; apply the requested method.}
+  \item \en{Compute MAD/MSE/MAPE and compare alternatives.}
+\end{enumerate}
+
+\subsection{决策表 / Decision Table}
+\begin{enumerate}
+  \item \cn{列出方案、自然状态和收益表。}
+  \item \cn{不确定性：按 Maximin、Maximax、Laplace 或 Minimax Regret。}
+  \item \cn{风险：计算每个方案 $EMV$。}
+  \item \cn{EVPI：先算完全信息下的期望值 $A$，再减去最佳 $EMV$。}
+  \item \en{List alternatives, states, and payoffs; choose the criterion; compute EMV or EVPI as needed.}
+\end{enumerate}
+
+\subsection{产能与盈亏平衡 / Capacity and BEP}
+\begin{enumerate}
+  \item \cn{识别 design capacity、effective capacity、actual output。}
+  \item \cn{计算 efficiency、utilization、capacity cushion。}
+  \item \cn{写出 $TC$、$TR$、profit，求 $Q_{BEP}$ 或目标利润产量。}
+  \item \en{Identify capacity measures, compute efficiency/utilization/cushion, and solve cost-volume equations.}
+\end{enumerate}
+
+\subsection{生产线平衡 / Line Balancing}
+\begin{enumerate}
+  \item \cn{根据目标产出求 $CT=OT/D$。}
+  \item \cn{根据总任务时间求 $N_{\min}$。}
+  \item \cn{画前置图，按启发式规则分配任务。}
+  \item \cn{计算 idle time 和 efficiency。}
+  \item \en{Compute cycle time, minimum workstations, assign tasks by precedence and heuristic rules, then compute idle time and efficiency.}
+\end{enumerate}
+
+\section{复习优先级 / Review Priorities}
+
+\begin{multicols}{2}
+\begin{itemize}
+  \item Forecasting formulas / 预测公式
+  \item MAD, MSE, MAPE, tracking signal / 误差指标
+  \item Decision criteria / 决策准则
+  \item EMV and EVPI / 期望值与完全信息价值
+  \item Capacity efficiency/utilization / 产能效率与利用率
+  \item BEP and make-or-buy / 盈亏平衡与自制外购
+  \item Process types and layouts / 流程类型和布局
+  \item Line balancing / 生产线平衡
+  \item QFD, FMEA, Kano / 设计质量工具
+  \item Service blueprinting / 服务蓝图
+\end{itemize}
+\end{multicols}
+
+\section{中英关键词表 / Bilingual Glossary}
+
+\begin{longtable}{L{0.3\linewidth}L{0.3\linewidth}L{0.32\linewidth}}
+\toprule
+\textbf{English} & \textbf{中文} & \textbf{记忆点 / Note} \\
+\midrule
+Operations management & 运营管理 & 输入转化为输出并创造价值。 \\
+Transformation process & 转化过程 & Physical, locational, exchange, storage, physiological, informational transformations. \\
+Order qualifier & 订单资格要素 & 进入顾客备选集合的最低标准。 \\
+Order winner & 赢单要素 & 真正促成选择的竞争优势。 \\
+Productivity & 生产率 & Output divided by input. \\
+Forecast error & 预测误差 & Actual minus forecast. \\
+Exponential smoothing & 指数平滑 & Previous forecast plus alpha times error. \\
+Tracking signal & 跟踪信号 & Detects persistent bias. \\
+Standardization & 标准化 & Efficiency vs. reduced variety. \\
+Delayed differentiation & 延迟差异化 & Postpone final customization. \\
+Modular design & 模块化设计 & Interchangeable modules. \\
+Reliability & 可靠性 & Performs intended function under specified conditions. \\
+Robust design & 稳健设计 & Performs across broad operating conditions. \\
+FMEA & 失效模式与影响分析 & Failure mode, cause, effect, action. \\
+QFD & 质量功能展开 & Voice of customer to design requirements. \\
+Kano model & Kano 模型 & Basic, performance, excitement needs. \\
+State of nature & 自然状态 & Uncontrollable future condition. \\
+Maximin & 最大最小准则 & Conservative best-worst choice. \\
+Minimax regret & 最小最大后悔准则 & Minimize worst regret. \\
+EMV & 期望货币价值 & Weighted average payoff. \\
+EVPI & 完全信息期望价值 & Maximum value of perfect information. \\
+Design capacity & 设计产能 & Maximum designed output rate. \\
+Effective capacity & 有效产能 & Design capacity minus allowances. \\
+Capacity cushion & 产能缓冲 & 100 percent minus utilization. \\
+Bottleneck & 瓶颈 & Constraint on system output. \\
+Break-even point & 盈亏平衡点 & Revenue equals total cost. \\
+Job shop & 作业车间 & Low volume, high variety. \\
+Batch & 批量流程 & Moderate volume and variety. \\
+Product layout & 产品布局 & Sequential standardized flow. \\
+Process layout & 流程布局 & Functional grouping. \\
+Cellular layout & 单元布局 & Group technology by part family. \\
+Line balancing & 生产线平衡 & Assign tasks to stations evenly. \\
+\bottomrule
+\end{longtable}
+
+\end{document}

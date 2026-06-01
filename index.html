@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Operations Management | 中英双语复习</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Operations Management">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>OR Study</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#lectures">Lectures</a>
+        <a href="#formulas">Formulas</a>
+        <a href="#methods">Methods</a>
+        <a href="#checklist">Checklist</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <p class="course-line">Operations Research and Information System Management</p>
+          <h1>中英双语运营管理复习</h1>
+          <p class="hero-subtitle">
+            Forecasting, product and service design, decision theory, capacity planning,
+            process selection, and facility layout.
+          </p>
+          <div class="hero-actions" aria-label="Study controls">
+            <label class="search-wrap">
+              <span class="search-icon" aria-hidden="true"></span>
+              <input id="searchInput" type="search" placeholder="Search / 搜索" autocomplete="off" />
+            </label>
+            <div class="segmented" role="group" aria-label="Language mode">
+              <button class="mode-btn active" type="button" data-lang="both">中英</button>
+              <button class="mode-btn" type="button" data-lang="cn">中文</button>
+              <button class="mode-btn" type="button" data-lang="en">English</button>
+            </div>
+          </div>
+        </div>
+        <figure class="hero-media">
+          <img src="./assets/or-hero.png" alt="Abstract operations system with forecasts, capacity gauge, decision tree, and layout grid" />
+        </figure>
+      </section>
+
+      <section class="stats section-shell" aria-label="Course scope">
+        <article>
+          <strong>13</strong>
+          <span>lectures / 讲</span>
+        </article>
+        <article>
+          <strong>6</strong>
+          <span>exam clusters / 考点组</span>
+        </article>
+        <article>
+          <strong>12</strong>
+          <span>core formulas / 核心公式</span>
+        </article>
+        <article>
+          <strong>2</strong>
+          <span>deliverables / 交付物</span>
+        </article>
+      </section>
+
+      <section id="lectures" class="section-shell content-section">
+        <div class="section-heading">
+          <h2>Lecture Map / 课程地图</h2>
+          <div id="moduleFilters" class="filter-row" aria-label="Module filters"></div>
+        </div>
+        <div id="lectureGrid" class="lecture-grid"></div>
+      </section>
+
+      <section id="formulas" class="section-shell content-section formulas-section">
+        <div class="section-heading">
+          <h2>Formula Deck / 公式卡</h2>
+          <p>MAD, MSE, MAPE, EMV, EVPI, BEP, capacity, and line balancing.</p>
+        </div>
+        <div id="formulaGrid" class="formula-grid"></div>
+      </section>
+
+      <section id="methods" class="section-shell content-section split-section">
+        <div class="panel">
+          <h2>Method Choice / 方法选择</h2>
+          <table class="method-table">
+            <thead>
+              <tr>
+                <th>Problem</th>
+                <th>Use</th>
+                <th>Watch</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Stable time series</td>
+                <td>Moving average or exponential smoothing</td>
+                <td>Lag and alpha choice</td>
+              </tr>
+              <tr>
+                <td>Trend data</td>
+                <td>Least-squares trend projection</td>
+                <td>Do not force simple smoothing</td>
+              </tr>
+              <tr>
+                <td>Unknown probabilities</td>
+                <td>Maximin, maximax, Laplace, minimax regret</td>
+                <td>Decision attitude matters</td>
+              </tr>
+              <tr>
+                <td>Known probabilities</td>
+                <td>EMV and decision trees</td>
+                <td>Analyze trees right to left</td>
+              </tr>
+              <tr>
+                <td>Capacity alternatives</td>
+                <td>Efficiency, utilization, BEP, CVP</td>
+                <td>Check feasible volume range</td>
+              </tr>
+              <tr>
+                <td>Assembly line</td>
+                <td>Cycle time, station count, idle time</td>
+                <td>Respect precedence constraints</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>Concept Pairs / 易混概念</h2>
+          <div class="pair-list">
+            <article>
+              <h3>Efficiency vs. Utilization</h3>
+              <p>Efficiency uses effective capacity. Utilization uses design capacity.</p>
+              <p>效率分母是有效产能；利用率分母是设计产能。</p>
+            </article>
+            <article>
+              <h3>Order Qualifiers vs. Order Winners</h3>
+              <p>Qualifiers get a product considered. Winners make it selected.</p>
+              <p>资格要素让顾客考虑你；赢单要素让顾客选择你。</p>
+            </article>
+            <article>
+              <h3>Process Layout vs. Product Layout</h3>
+              <p>Process layout groups functions. Product layout follows sequence.</p>
+              <p>流程布局按功能分组；产品布局按加工顺序排列。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist" class="section-shell content-section checklist-section">
+        <div class="section-heading">
+          <h2>Review Checklist / 复习清单</h2>
+          <p>Forecasting calculations, decision criteria, capacity analysis, layouts, and design tools.</p>
+        </div>
+        <div id="checklistGrid" class="checklist-grid"></div>
+      </section>
+
+      <section class="section-shell source-section">
+        <h2>Downloads / 下载</h2>
+        <div class="source-links">
+          <a href="./downloads/or_bilingual_summary.pdf">Bilingual PDF</a>
+          <a href="./downloads/or_bilingual_summary.tex">LaTeX Source</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
