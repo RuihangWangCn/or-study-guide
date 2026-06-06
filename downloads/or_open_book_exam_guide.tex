@@ -1,0 +1,897 @@
+\documentclass[10pt,a4paper]{ctexart}
+
+\usepackage[margin=1.65cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,tabularx,array,multicol}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{makeidx}
+
+\definecolor{Ink}{HTML}{1F2937}
+\definecolor{Muted}{HTML}{5B6673}
+\definecolor{Teal}{HTML}{007C7C}
+\definecolor{Indigo}{HTML}{243B6B}
+\definecolor{Amber}{HTML}{B86B00}
+\definecolor{Soft}{HTML}{F4F7F6}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=Indigo,
+  urlcolor=Teal,
+  citecolor=Amber
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Open-book Exam Guide}
+\rhead{开卷考中英资料}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[itemize]{topsep=2pt,itemsep=1pt,leftmargin=1.25em}
+\setlist[enumerate]{topsep=2pt,itemsep=1pt,leftmargin=1.45em}
+\renewcommand{\arraystretch}{1.16}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\term}[2]{\textbf{\textcolor{Teal}{#1}} \textcolor{Muted}{(#2)}}
+\newcommand{\source}[1]{\textcolor{Muted}{\footnotesize Source: #1}}
+\newcommand{\exam}[1]{\textcolor{Amber}{\textbf{Exam use:} #1}}
+\newcommand{\cn}[1]{\textbf{中文：}#1}
+\newcommand{\en}[1]{\textbf{English:} #1}
+\newcommand{\kw}[1]{\textbf{\textcolor{Indigo}{#1}}}
+\makeindex
+
+\title{\textbf{Operations Research and Information System Management}\\
+\large 第一次开卷考资料 - 中英双语速查版}
+\author{Based on OR Class 1-13 slides}
+\date{Prepared for open-book review}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{使用方法 / How to Use This Guide}
+\addcontentsline{toc}{section}{使用方法 / How to Use This Guide}
+
+\begin{itemize}
+  \item \cn{开卷考最重要的是定位速度。先看第 \ref{sec:fast-index} 节的索引表，用题目关键词定位到公式、步骤和对应课件。}
+  \item \en{For an open-book exam, retrieval speed matters most. Start from Section \ref{sec:fast-index}: use keywords to locate formulas, procedures, and slide sources.}
+  \item \cn{计算题优先看第 \ref{sec:templates} 节的题型模板；概念题优先看各章的 ``must know'' 和 ``pitfall''。}
+  \item \en{For calculation questions, use the templates in Section \ref{sec:templates}. For concept questions, use the ``must know'' and ``pitfall'' notes in each topic section.}
+  \item \cn{末尾有英文术语索引。前置索引更适合考试，末尾索引更适合按英文关键词查。}
+  \item \en{The back index is sorted by English terms. The front index is more useful during the exam.}
+\end{itemize}
+
+\section{开卷检索索引 / Fast Retrieval Index}
+\label{sec:fast-index}
+
+\subsection{题目关键词索引 / Question Keyword Index}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}L{0.17\linewidth}L{0.28\linewidth}L{0.29\linewidth}L{0.13\linewidth}@{}}
+\toprule
+\textbf{看到关键词 / If you see} & \textbf{马上找 / Go to} & \textbf{答题骨架 / Answer skeleton} & \textbf{Slides} \\
+\midrule
+forecast, demand, trend, alpha, smoothing, moving average & 预测 / Forecasting, Section \ref{sec:forecasting} & 选方法 $\rightarrow$ 算预测值 $\rightarrow$ 算误差 $\rightarrow$ 比较 MAD/MSE/MAPE & Class 4, 5 \\
+MAD, MSE, MAPE, tracking signal, control chart & 预测误差 / Accuracy, Section \ref{subsec:accuracy} & $e=A-F$ $\rightarrow$ 绝对值/平方/百分比 $\rightarrow$ 判断 bias & Class 5 \\
+regression, least squares, fitted line, trend projection & 趋势与回归 / Trend, Section \ref{subsec:trend} & 算 $a,b$ $\rightarrow$ 写 $\hat{y}=a+bt$ 或 $\hat{y}=a+bx$ $\rightarrow$ 代入预测 & Class 4, 5 \\
+maximin, maximax, Laplace, regret & 不确定性决策 / Uncertainty, Section \ref{subsec:uncertainty} & 收益表 $\rightarrow$ 每个方案求对应准则 $\rightarrow$ 选最佳 & Class 9 \\
+probability, risk, EMV & 风险决策 / EMV, Section \ref{subsec:emv} & 每方案 $EMV=\sum p_s payoff$ $\rightarrow$ 选最大 & Class 9 \\
+decision tree, backward induction & 决策树 / Decision tree, Section \ref{subsec:tree} & 从左往右读，从右往左算；机会节点算期望，决策节点取最大 & Class 9 \\
+EVPI, perfect information & 完全信息价值 / EVPI, Section \ref{subsec:evpi} & $A=\sum p_s \max payoff$，$B=\max EMV$，$EVPI=A-B$ & Class 9 \\
+capacity, utilization, efficiency, design capacity, effective capacity & 产能度量 / Capacity measures, Section \ref{subsec:cap-measures} & 分清三个 capacity $\rightarrow$ efficiency 用 effective，utilization 用 design & Class 10 \\
+capacity cushion, lead/follow/track & 产能战略 / Capacity strategy, Section \ref{subsec:cap-strategy} & 不确定性越高，cushion 越大；三种扩张策略比较 & Class 10 \\
+bottleneck, constraint & 瓶颈与约束 / Bottleneck, Section \ref{subsec:bottleneck} & 系统产出由最慢环节限制；先改善 bottleneck & Class 11, 13 \\
+BEP, fixed cost, variable cost, make or buy & 成本-产量分析 / Cost-volume, Section \ref{subsec:cvp} & 写 $TC,TR,Profit$ $\rightarrow$ 求交点或目标利润产量 & Class 11 \\
+standardization, delayed differentiation, modular design & 产品设计策略 / Design strategy, Section \ref{subsec:standardization} & 标准化提高效率；延迟差异化推迟定制；模块化兼顾标准化和定制 & Class 6 \\
+reliability, robust design, Taguchi & 可靠性与稳健设计 / Reliability, Section \ref{subsec:reliability} & reliability 是规定条件下正常工作；robust 是不同环境下保持稳定 & Class 6 \\
+FMEA, FTA, VA, QFD, house of quality, Kano & 质量设计工具 / Quality tools, Section \ref{subsec:quality-tools} & 工具名称 $\rightarrow$ 目的 $\rightarrow$ 表格/矩阵/分类逻辑 & Class 7 \\
+service blueprint, high-contact, low-contact & 服务设计 / Service design, Section \ref{subsec:service-design} & 服务概念/服务包/服务规格；蓝图步骤；高低接触比较 & Class 8 \\
+job shop, batch, repetitive, continuous, project & 流程选择 / Process types, Section \ref{subsec:process-types} & 产量低高、品种多少、柔性高低三维定位 & Class 12 \\
+product layout, process layout, fixed-position, cellular & 设施布局 / Layouts, Section \ref{subsec:layouts} & product 顺序流；process 功能分组；fixed 产品不动；cellular 按族群 & Class 12, 13 \\
+line balancing, cycle time, workstation, idle time & 生产线平衡 / Line balancing, Section \ref{subsec:line-balancing} & 算 $CT$ $\rightarrow$ 算 $N_{\min}$ $\rightarrow$ 按前置关系分配 $\rightarrow$ idle/efficiency & Class 13 \\
+transportation cost, flow, distance, process layout assignment & 流程布局成本 / Load-distance, Section \ref{subsec:load-distance} & 大 flow 配短 distance；总成本 $\sum F_{ij}D_{ij}C_{ij}$ & Class 13 \\
+\bottomrule
+\end{longtable}
+}
+
+\subsection{公式索引 / Formula Index}
+
+\begin{longtable}{@{}L{0.25\linewidth}L{0.36\linewidth}L{0.30\linewidth}@{}}
+\toprule
+\textbf{公式 / Formula} & \textbf{表达 / Expression} & \textbf{什么时候用 / When to use} \\
+\midrule
+Productivity\index{Productivity} & $\text{Productivity}=\frac{\text{Output}}{\text{Input}}$ & 生产率、资源利用效率。 \\
+Productivity growth & $\frac{P_{current}-P_{previous}}{P_{previous}}$ & 比较两期生产率增长。 \\
+Naive forecast\index{Naive forecast} & $F_t=A_{t-1}$ & 最简单预测，下一期等于上一期实际值。 \\
+Moving average\index{Moving average} & $F_t=\frac{A_{t-1}+\cdots+A_{t-n}}{n}$ & 稳定序列，平滑随机波动。 \\
+Weighted moving average\index{Weighted moving average} & $F_t=\sum w_i A_{t-i}$, $\sum w_i=1$ & 近期数据更重要。 \\
+Exponential smoothing\index{Exponential smoothing} & $F_t=F_{t-1}+\alpha(A_{t-1}-F_{t-1})$ & 只需上一期 forecast 和 actual。 \\
+Linear trend\index{Linear trend} & $F_t=a+bt$ & 有线性趋势时预测。 \\
+Least-squares slope & $b=\frac{n\sum ty-\sum t\sum y}{n\sum t^2-(\sum t)^2}$ & 估计趋势线斜率。 \\
+Least-squares intercept & $a=\frac{\sum y-b\sum t}{n}$ & 估计趋势线截距。 \\
+MAD\index{MAD} & $MAD=\frac{\sum |A_t-F_t|}{n}$ & 平均绝对误差。 \\
+MSE\index{MSE} & $MSE=\frac{\sum (A_t-F_t)^2}{n-1}$ & 大误差惩罚更重。 \\
+MAPE\index{MAPE} & $MAPE=\frac{100}{n}\sum\left|\frac{A_t-F_t}{A_t}\right|$ & 百分比误差，可跨规模比较。 \\
+Tracking signal\index{Tracking signal} & $\frac{\sum(A_t-F_t)}{MAD}$ & 判断持续偏高或偏低。 \\
+EMV\index{EMV} & $EMV_i=\sum_s p_s payoff_{i,s}$ & 风险下选最大期望收益。 \\
+EVPI\index{EVPI} & $EVPI=\sum_s p_s\max_i payoff_{i,s}-\max_i EMV_i$ & 完全信息的最高价值。 \\
+Efficiency\index{Efficiency} & $\frac{\text{Actual Output}}{\text{Effective Capacity}}$ & 衡量有效产能使用程度。 \\
+Utilization\index{Utilization} & $\frac{\text{Actual Output}}{\text{Design Capacity}}$ & 衡量设计产能使用程度。 \\
+Capacity cushion\index{Capacity cushion} & $100\%-Utilization$ & 应对需求不确定性的额外产能。 \\
+Processing requirement & $NR=\frac{\sum p_iD_i}{T}$ & 多产品加工资源需求。 \\
+Total cost\index{Cost-volume analysis} & $TC=FC+vcQ$ & 成本-产量分析。 \\
+Total revenue & $TR=RQ$ & 收入-产量分析。 \\
+Profit & $P=Q(R-vc)-FC$ & 目标利润或盈亏分析。 \\
+BEP\index{Break-even point} & $Q_{BEP}=\frac{FC}{R-vc}$ & 盈亏平衡点。 \\
+Cycle time\index{Cycle time} & $CT=\frac{OT}{D}$ & 生产线平衡，目标产出给定。 \\
+Minimum stations & $N_{\min}=\left\lceil \frac{\sum t_i}{CT}\right\rceil$ & 最少工作站数量。 \\
+Idle time & $\frac{\text{Idle time per cycle}}{N\times CT}$ & 生产线闲置比例。 \\
+Line efficiency\index{Line balancing} & $1-\text{Percent idle time}$ & 生产线效率。 \\
+Load-distance cost\index{Load-distance cost} & $\sum_{i<j}F_{ij}D_{ij}C_{ij}$ & 流程布局运输成本。 \\
+\bottomrule
+\end{longtable}
+
+\section{运营管理基础、战略与生产率 / OM Basics, Strategy, and Productivity}
+\label{sec:om}
+
+\subsection{核心定义 / Core Definitions}
+
+\term{Operations Management}{运营管理}\index{Operations management}: management of the transformation process that turns inputs into outputs. \\
+\cn{运营管理关注如何把输入转化为产品、服务或信息，并创造价值。}\\
+\en{Operations management focuses on converting inputs into goods, services, or information that create value.}\\
+\source{OR Class 2, slides 3-10}
+
+\textbf{Input - Transformation - Output}
+\begin{itemize}
+  \item Inputs: labor, equipment, facilities, raw materials, time, knowledge, skills, customer relationships, reputation.
+  \item Outputs: products, services, information.
+  \item Transformation can be physical, locational, exchange, storage, physiological, or informational.
+\end{itemize}
+
+\subsection{系统设计 vs. 系统运行 / System Design vs. System Operation}
+
+\begin{longtable}{@{}L{0.46\linewidth}L{0.46\linewidth}@{}}
+\toprule
+\textbf{System Design Decisions / 系统设计决策} & \textbf{System Operation Decisions / 系统运行决策} \\
+\midrule
+Capacity, location, layout, product/service planning, acquisition and placement of equipment. & Personnel management, inventory control, scheduling, project management, quality assurance. \\
+Strategic, long-term, resource commitment. & Tactical or operational, day-to-day control. \\
+\bottomrule
+\end{longtable}
+
+\exam{如果题目问 product design 和 process selection 属于哪类决策，答案是 system design decisions。}
+
+\subsection{模型、权衡与系统观 / Models, Trade-offs, and Systems Approach}
+\term{Model}{模型}\index{Model}: abstraction and simplification of reality. Models help organize information, quantify problems, and answer what-if questions.\\
+\term{Trade-off}{权衡}\index{Trade-off}: giving up one thing in exchange for another, such as cost vs. quality, speed vs. flexibility.\\
+\term{Systems approach}{系统观}\index{Systems approach}: emphasizes relationships among subsystems; the whole is greater than the sum of parts.\\
+\exam{模型题常考 ``models do not guarantee the best decision''。模型有用，但会遗漏定性因素，也可能被误用。}
+
+\subsection{竞争力、订单资格和赢单要素 / Competitiveness, Qualifiers, and Winners}
+
+\term{Competitiveness}{竞争力}\index{Competitiveness}: how effectively an organization meets customer wants and needs relative to competitors.\\
+\term{Order qualifiers}{订单资格要素}\index{Order qualifiers}: minimum standards that allow an option to be considered.\\
+\term{Order winners}{赢单要素}\index{Order winners}: characteristics that make customers choose one option over competitors.\\
+\source{OR Class 3, slides 5, 31-32}
+
+\textbf{Strategy formulation / 战略形成}
+\begin{enumerate}
+  \item Define the primary task.
+  \item Assess distinctive competencies.
+  \item Identify order qualifiers and order winners.
+  \item Position the firm.
+\end{enumerate}
+
+\subsection{生产率 / Productivity}
+\index{Productivity}
+\[
+\text{Productivity}=\frac{\text{Outputs}}{\text{Inputs}}, \qquad
+\text{Growth}=\frac{P_{current}-P_{previous}}{P_{previous}}
+\]
+
+\begin{itemize}
+  \item \term{Partial productivity}{单要素生产率}: output divided by one input, e.g. units per labor hour.
+  \item \term{Multifactor productivity}{多要素生产率}: output divided by several inputs.
+  \item \term{Total productivity}{总生产率}: output divided by all inputs.
+\end{itemize}
+\exam{题目给 labor/material/overhead 时，labor productivity 只用 labor；total productivity 用所有 input 的总和。}
+
+\section{预测 / Forecasting}
+\label{sec:forecasting}
+
+\subsection{预测基本逻辑 / Forecasting Logic}
+\term{Forecast}{预测}\index{Forecasting}: a statement about the future value of a variable of interest, usually demand.\\
+\source{Class 4, slides 6-11}
+
+\textbf{Good forecasts / 好预测的特征}
+\begin{multicols}{2}
+\begin{itemize}
+  \item Timely / 及时
+  \item Accurate / 准确
+  \item Reliable / 可靠
+  \item Meaningful units / 单位有意义
+  \item Written / 书面化
+  \item Easy to understand / 易理解
+  \item Cost-effective / 成本有效
+\end{itemize}
+\end{multicols}
+
+\textbf{Forecasting process / 预测步骤}
+\begin{enumerate}
+  \item Determine purpose.
+  \item Establish time horizon.
+  \item Select technique.
+  \item Gather and analyze data.
+  \item Make forecast.
+  \item Monitor forecast.
+\end{enumerate}
+
+\subsection{定性预测 / Qualitative Forecasting}
+
+\begin{longtable}{@{}L{0.22\linewidth}L{0.36\linewidth}L{0.34\linewidth}@{}}
+\toprule
+\textbf{Method} & \textbf{中文解释} & \textbf{Exam note} \\
+\midrule
+Executive opinions & 高层小组判断。 & 快，但可能受权力和偏见影响。 \\
+Sales force opinions & 销售人员接触客户。 & 信息直接，但可能有激励偏差。 \\
+Consumer survey & 问卷调查顾客意向。 & 新产品有用，成本高。 \\
+Delphi method\index{Delphi method} & 多轮匿名专家问卷。 & 减少从众和权威压力。 \\
+Outside opinions & 第三方预测。 & 省力，但依赖外部机构质量。 \\
+\bottomrule
+\end{longtable}
+
+\subsection{时间序列方法 / Time-Series Methods}
+\index{Time series}
+
+\begin{align*}
+\text{Naive:}\quad & F_t=A_{t-1}\\
+\text{Moving Average:}\quad & F_t=\frac{A_{t-1}+\cdots +A_{t-n}}{n}\\
+\text{Weighted Moving Average:}\quad & F_t=\sum_{i=1}^{n}w_iA_{t-i}, \quad \sum w_i=1\\
+\text{Exponential Smoothing:}\quad & F_t=F_{t-1}+\alpha(A_{t-1}-F_{t-1})
+\end{align*}
+
+\textbf{Alpha interpretation / $\alpha$ 的含义}\index{Alpha}
+\begin{itemize}
+  \item Small $\alpha$: stable, smooth, slow response, larger lag.
+  \item Large $\alpha$: responsive, tracks actual series more closely, less smoothing.
+  \item Slides note: common rule of thumb $\alpha <0.5$; $\alpha=0.2$ or $0.3$ often works.
+\end{itemize}
+\source{Class 4, slides 44-49}
+
+\subsection{趋势与回归 / Trend and Regression}
+\label{subsec:trend}
+\index{Regression}
+\[
+F_t=a+bt
+\]
+\[
+b=\frac{n\sum ty-\sum t\sum y}{n\sum t^2-(\sum t)^2},
+\qquad
+a=\frac{\sum y-b\sum t}{n}
+\]
+\[
+SSE=\sum_{i=1}^{n}(y_i-\hat{y}_i)^2
+\]
+
+\textcolor{Amber}{\textbf{Exam use:}} 如果题目给 period/week/month 与 sales/demand，并问 least squares trend line：
+\begin{enumerate}
+  \item 建表求 $\sum t,\sum y,\sum t^2,\sum ty$。
+  \item 计算 $b,a$。
+  \item 把未来期数代入 $F_t=a+bt$。
+\end{enumerate}
+
+\subsection{预测误差 / Forecast Accuracy}
+\label{subsec:accuracy}
+\index{Forecast accuracy}
+
+\[
+e_t=A_t-F_t
+\]
+\[
+MAD=\frac{\sum |A_t-F_t|}{n}
+\]
+\[
+MSE=\frac{\sum (A_t-F_t)^2}{n-1}
+\]
+\[
+MAPE=\frac{100}{n}\sum\left|\frac{A_t-F_t}{A_t}\right|
+\]
+\[
+\text{Tracking Signal}=\frac{\sum(A_t-F_t)}{MAD}
+\]
+
+\begin{longtable}{@{}L{0.20\linewidth}L{0.38\linewidth}L{0.34\linewidth}@{}}
+\toprule
+\textbf{Measure} & \textbf{中文} & \textbf{English} \\
+\midrule
+MAD & 平均绝对误差，容易解释。 & Average absolute error; linear penalty. \\
+MSE & 平方误差均值，对大误差惩罚更重。 & Penalizes large errors more strongly. \\
+MAPE & 百分比误差，适合跨规模比较。 & Percentage error; scale-free comparison. \\
+Tracking signal & 累计误差除以 MAD，判断系统偏差。 & Detects persistent bias. \\
+\bottomrule
+\end{longtable}
+
+\exam{题目说 ``MAD is the square root of MSE'' 是 false。MAD 是 mean absolute deviation，不是 MSE 的平方根。}
+
+\section{产品与服务设计 / Product and Service Design}
+\label{sec:design}
+
+\subsection{设计目标 / Design Objectives}
+\index{Product design}
+\cn{产品和服务设计的核心是把顾客需求转化为可运营、可制造、可交付的规格。}\\
+\en{The core of product and service design is translating customer needs into operational, manufacturable, and deliverable specifications.}\\
+\source{Class 6, slides 8-16}
+
+\textbf{Main issues / 主要问题}
+\begin{multicols}{2}
+\begin{itemize}
+  \item Economic / 经济
+  \item Competitive / 竞争
+  \item Legal / 法律
+  \item Ethical / 伦理
+  \item Environmental / 环境
+  \item Operational capabilities / 运营能力
+\end{itemize}
+\end{multicols}
+
+\subsection{标准化、延迟差异化、模块化 / Standardization, Delayed Differentiation, Modularity}
+\label{subsec:standardization}
+\index{Standardization}
+\index{Delayed differentiation}
+\index{Modular design}
+
+\begin{longtable}{@{}L{0.24\linewidth}L{0.36\linewidth}L{0.32\linewidth}@{}}
+\toprule
+\textbf{Concept} & \textbf{中文解释} & \textbf{Exam note} \\
+\midrule
+Standardization & 减少产品、服务或流程的变化。 & 优点是低成本、一致性、长生产批量；缺点是缺少多样性，设计变化阻力大。 \\
+Component commonality & 多个产品使用相同零件。 & 降低库存、采购、培训复杂度。 \\
+Delayed differentiation & 先生产但不最终完成，等顾客偏好明确后再定制。 & 是 postponement tactic。 \\
+Modular design & 把组件分成可替换模块。 & 便于诊断、维修、替换、定制；可能增加整模块替换成本。 \\
+Mass customization & 标准化基础上的定制。 & 用标准化效率支持个性化。 \\
+\bottomrule
+\end{longtable}
+
+\exam{题目问 postponement tactic 的例子，选 delayed differentiation。}
+
+\subsection{可靠性与稳健设计 / Reliability and Robust Design}
+\label{subsec:reliability}
+\index{Reliability}
+\index{Robust design}
+
+\term{Reliability}{可靠性}: ability of a product, part, or system to perform its intended function under prescribed conditions.\\
+\term{Failure}{失效}: product, part, or system does not perform as intended.\\
+\term{Robust design}{稳健设计}: product or service functions over a broad range of conditions.\\
+\source{Class 6, slides 44-49}
+
+\textbf{Improve reliability / 提升可靠性}
+\begin{multicols}{2}
+\begin{itemize}
+  \item Component design
+  \item Production/assembly techniques
+  \item Testing
+  \item Redundancy/backup
+  \item Preventive maintenance
+  \item User education
+  \item System design
+\end{itemize}
+\end{multicols}
+
+\exam{题目问 one way to increase reliability，improve component design 或 add backup components 都符合。}
+
+\subsection{产品开发流程与并行工程 / Development Process and Concurrent Engineering}
+\index{Concurrent engineering}
+\index{Design for manufacturing}
+
+\textbf{Product development process / 产品开发流程}
+\begin{enumerate}
+  \item Idea generation / 创意产生
+  \item Feasibility analysis / 可行性分析
+  \item Product specifications / 产品规格
+  \item Process specifications / 流程规格
+  \item Prototype development / 原型开发
+  \item Design review / 设计评审
+  \item Market test / 市场测试
+  \item Product introduction / 产品导入
+\end{enumerate}
+
+\term{Concurrent engineering}{并行工程}: design and operations people work together early, avoiding the sequential ``over the wall'' problem.\\
+\term{DFM}{可制造性设计}: design products so they can be produced and assembled economically.
+\source{Class 7, slides 5-18}
+
+\subsection{质量设计工具 / Quality Design Tools}
+\label{subsec:quality-tools}
+
+\begin{longtable}{@{}L{0.18\linewidth}L{0.38\linewidth}L{0.36\linewidth}@{}}
+\toprule
+\textbf{Tool} & \textbf{中文用途} & \textbf{English use} \\
+\midrule
+FMEA\index{FMEA} & 系统分析 failure mode, cause, effect, corrective action。 & Systematically analyzes failure modes, causes, effects, and corrective actions. \\
+FTA\index{FTA} & 用树形逻辑分析故障之间的关系。 & Visual method for analyzing interrelationships among failures. \\
+VA\index{Value analysis} & 问 ``能不能去掉、有没有过度、能不能更便宜更好更快''。 & Eliminates unnecessary features or functions. \\
+QFD\index{QFD} & 把顾客之声转化为设计要求。 & Carries the voice of customer into design and implementation. \\
+House of Quality\index{House of Quality} & QFD 的第一个矩阵，连接 customer requirements 与 design requirements。 & Matrix connecting customer requirements, technical characteristics, benchmarks, and targets. \\
+Kano model\index{Kano model} & 区分 basic, performance, excitement quality。 & Classifies basic, performance, and excitement requirements. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Kano categories / Kano 三类需求}
+\begin{itemize}
+  \item Basic: presence has limited satisfaction effect, absence causes dissatisfaction.
+  \item Performance: satisfaction increases or decreases with performance level.
+  \item Excitement: unexpected feature that delights the customer.
+\end{itemize}
+
+\subsection{服务设计 / Service Design}
+\label{subsec:service-design}
+\index{Service design}
+\index{Service blueprinting}
+
+\term{Service concept}{服务概念}: purpose of the service, target market, and desired customer experience.\\
+\term{Service package}{服务包}: mixture of physical items, sensual benefits, and psychological benefits.\\
+\term{Service specifications}{服务规格}: performance specifications translated into design and delivery specifications.\\
+\source{class 8, slides 11-14}
+
+\textbf{Service blueprinting steps / 服务蓝图步骤}
+\begin{enumerate}
+  \item Establish boundaries.
+  \item Identify sequence of customer interactions.
+  \item Develop time estimates.
+  \item Identify potential failure points.
+  \item Establish a time frame.
+  \item Analyze profitability.
+\end{enumerate}
+
+\begin{longtable}{@{}L{0.30\linewidth}L{0.30\linewidth}L{0.32\linewidth}@{}}
+\toprule
+\textbf{Design decision} & \textbf{High-contact service} & \textbf{Low-contact service} \\
+\midrule
+Facility location & Convenient to customers. & Near labor or transportation source. \\
+Facility layout & Presentable, supports interaction. & Designed for efficiency. \\
+Quality control & More variable; customer participates. & Standards, testing, rework possible. \\
+Capacity & Needs excess capacity for peaks. & Planned closer to average demand. \\
+Worker skills & Interaction and judgment. & Technical skills. \\
+Process & Mostly front-room activities. & Mostly back-room activities. \\
+\bottomrule
+\end{longtable}
+
+\section{决策理论 / Decision Theory}
+\label{sec:decision}
+
+\subsection{决策要素与环境 / Elements and Environments}
+\index{Decision theory}
+\term{State of nature}{自然状态}: possible future condition that affects payoff.\\
+\term{Alternative}{备选方案}: action available to the manager.\\
+\term{Payoff}{收益}: outcome of an alternative under a state of nature.\\
+\source{Class 9, slides 3-6}
+
+\begin{longtable}{@{}L{0.24\linewidth}L{0.34\linewidth}L{0.34\linewidth}@{}}
+\toprule
+\textbf{Environment} & \textbf{中文} & \textbf{English} \\
+\midrule
+Certainty & 结果确定。 & Relevant outcomes are known. \\
+Uncertainty & 自然状态概率未知。 & Probabilities are unknown. \\
+Risk & 自然状态概率已知或可估计。 & Probabilities are known or estimated. \\
+\bottomrule
+\end{longtable}
+
+\subsection{不确定性决策 / Decision Under Uncertainty}
+\label{subsec:uncertainty}
+\index{Maximin}
+\index{Maximax}
+\index{Laplace}
+\index{Minimax regret}
+
+\begin{longtable}{@{}L{0.22\linewidth}L{0.42\linewidth}L{0.28\linewidth}@{}}
+\toprule
+\textbf{Criterion} & \textbf{Rule / 规则} & \textbf{Mindset} \\
+\midrule
+Maximin & For each alternative, find worst payoff; choose the best worst payoff. & Conservative / 保守 \\
+Maximax & For each alternative, find best payoff; choose the best best payoff. & Optimistic / 乐观 \\
+Laplace & Average payoffs assuming equal probabilities; choose highest average. & Equal likelihood / 等可能 \\
+Minimax regret & Convert to regret table; for each alternative find maximum regret; choose smallest maximum regret. & Avoid regret / 避免后悔 \\
+\bottomrule
+\end{longtable}
+
+\exam{题干出现 ``best worst'' 就是 maximin。题干出现 ``least regrets'' 就是 minimax regret。}
+
+\subsection{风险下决策与 EMV / Decision Under Risk and EMV}
+\label{subsec:emv}
+\index{EMV}
+\[
+EMV_i=\sum_s p_s \times payoff_{i,s}
+\]
+\cn{对每个方案分别计算 EMV，选择最大值。}\\
+\en{Compute EMV for each alternative and choose the highest value.}\\
+\source{Class 9, slides 27-29}
+
+\subsection{决策树 / Decision Trees}
+\label{subsec:tree}
+\index{Decision tree}
+\begin{itemize}
+  \item Read the tree from left to right.
+  \item Analyze the tree from right to left.
+  \item Chance node: calculate expected value.
+  \item Decision node: choose the best branch.
+\end{itemize}
+\exam{开卷时不要从左往右直接算。决策树的计算方向一定是从右往左 rollback。}
+
+\subsection{完全信息期望价值 / EVPI}
+\label{subsec:evpi}
+\index{EVPI}
+\[
+A=\sum_s p_s \max_i(payoff_{i,s}), \qquad B=\max_i EMV_i
+\]
+\[
+EVPI=A-B
+\]
+\cn{$A$ 是完美信息下每个自然状态都选最优方案后的期望值；$B$ 是没有完美信息时的最佳 EMV。}\\
+\en{$A$ is the expected value with perfect information; $B$ is the best EMV without perfect information.}
+
+\subsection{敏感性分析 / Sensitivity Analysis}
+\index{Sensitivity analysis}
+\cn{敏感性分析确定概率或参数在什么范围内变化时，当前最优方案仍然最优。}\\
+\en{Sensitivity analysis finds the probability or parameter range over which the current best alternative remains best.}
+
+\section{产能规划 / Capacity Planning}
+\label{sec:capacity}
+
+\subsection{产能度量 / Capacity Measures}
+\label{subsec:cap-measures}
+\index{Capacity planning}
+\index{Design capacity}
+\index{Effective capacity}
+
+\begin{longtable}{@{}L{0.24\linewidth}L{0.34\linewidth}L{0.34\linewidth}@{}}
+\toprule
+\textbf{Measure} & \textbf{中文} & \textbf{English} \\
+\midrule
+Design capacity & 设计最大产出率或服务能力。 & Maximum designed output rate or service capacity. \\
+Effective capacity & 设计产能扣除维护、休息、废品等 allowance 后的能力。 & Design capacity minus allowances such as personal time, maintenance, and scrap. \\
+Actual output & 实际实现的产出率。 & Output actually achieved. \\
+\bottomrule
+\end{longtable}
+
+\[
+\text{Efficiency}=\frac{\text{Actual Output}}{\text{Effective Capacity}},
+\qquad
+\text{Utilization}=\frac{\text{Actual Output}}{\text{Design Capacity}}
+\]
+\[
+\text{Capacity Cushion}=100\%-Utilization
+\]
+\source{Class 10, slides 14-23}
+
+\exam{最容易错的是分母：efficiency 用 effective capacity；utilization 用 design capacity。}
+
+\subsection{产能战略 / Capacity Strategy}
+\label{subsec:cap-strategy}
+\index{Capacity cushion}
+\index{Leading strategy}
+\index{Following strategy}
+\index{Tracking strategy}
+
+\begin{longtable}{@{}L{0.20\linewidth}L{0.38\linewidth}L{0.34\linewidth}@{}}
+\toprule
+\textbf{Strategy} & \textbf{中文} & \textbf{Trade-off} \\
+\midrule
+Leading & 在需求增长前提前建产能。 & 服务水平高，闲置风险高。 \\
+Following & 需求超过当前产能后再扩张。 & 闲置少，可能失去顾客。 \\
+Tracking & 小幅多次增加产能，贴近需求。 & 折中，管理复杂度较高。 \\
+\bottomrule
+\end{longtable}
+
+\textbf{Capacity planning steps / 产能规划步骤}
+\begin{enumerate}
+  \item Estimate future capacity requirements.
+  \item Evaluate existing capacity.
+  \item Identify alternatives.
+  \item Conduct financial analysis.
+  \item Assess qualitative issues.
+  \item Select one alternative.
+  \item Implement.
+  \item Monitor results.
+\end{enumerate}
+
+\subsection{加工需求 / Processing Requirements}
+\index{Processing requirement}
+\[
+NR=\frac{\sum_{i=1}^{k}p_iD_i}{T}
+\]
+\begin{itemize}
+  \item $p_i$: processing time per unit of product $i$.
+  \item $D_i$: demand for product $i$.
+  \item $T$: available work time per resource.
+  \item If capacity cushion is required, multiply required good output by $1+\text{cushion}$ before calculating resource needs.
+\end{itemize}
+
+\subsection{服务产能、瓶颈与约束 / Service Capacity, Bottlenecks, and Constraints}
+\label{subsec:bottleneck}
+\index{Bottleneck}
+\index{Constraint management}
+
+\textbf{Service capacity特点 / Service capacity features}
+\begin{itemize}
+  \item Need to be near customers; capacity and location are closely tied.
+  \item Services cannot be stored; timing must match demand.
+  \item Demand is often volatile with peak periods.
+\end{itemize}
+
+\term{Bottleneck}{瓶颈}: an operation with the lowest effective capacity that limits total system output.\\
+\exam{在 bottleneck 之前增加产能通常不会提高系统产出，因为系统被 bottleneck 限制。}
+
+\textbf{Constraint management / 约束管理}
+\begin{enumerate}
+  \item Identify the most pressing constraint.
+  \item Change operation to maximize benefit from the constraint.
+  \item Make sure other parts support the constraint.
+  \item Explore and evaluate alternatives.
+  \item Repeat when the constraint shifts.
+\end{enumerate}
+
+\subsection{成本-产量分析 / Cost-Volume Analysis}
+\label{subsec:cvp}
+\index{Cost-volume analysis}
+\index{Break-even point}
+
+\[
+TC=FC+vcQ,\qquad TR=RQ
+\]
+\[
+Profit=TR-TC=Q(R-vc)-FC
+\]
+\[
+Q_{BEP}=\frac{FC}{R-vc}
+\]
+\[
+Q_{\text{target profit}}=\frac{P_{\text{target}}+FC}{R-vc}
+\]
+\source{Class 11, slides 23-39}
+
+\exam{Make-or-buy 题：分别写 $TC_{make}$ 和 $TC_{buy}$，令二者相等求临界产量。低于临界点通常买，高于临界点通常自制，但要看固定成本在哪个方案。}
+
+\textbf{Assumptions / 假设}
+\begin{itemize}
+  \item One product is involved.
+  \item Everything produced can be sold.
+  \item Variable cost per unit is constant.
+  \item Fixed cost does not change within the relevant range.
+  \item Revenue per unit is constant.
+\end{itemize}
+
+\section{流程选择与设施布局 / Process Selection and Facility Layout}
+\label{sec:layout}
+
+\subsection{流程类型 / Process Types}
+\label{subsec:process-types}
+\index{Process selection}
+\index{Job shop}
+\index{Batch}
+\index{Continuous flow}
+
+\begin{longtable}{@{}L{0.22\linewidth}L{0.34\linewidth}L{0.36\linewidth}@{}}
+\toprule
+\textbf{Type} & \textbf{中文} & \textbf{Key position} \\
+\midrule
+Job shop & 小规模、高品种、高柔性。 & Low volume, high variety, high equipment flexibility. \\
+Batch & 中等产量和中等品种。 & Moderate volume and variety. \\
+Repetitive / assembly line & 高产量标准化产品或服务。 & High volume, low variety, standardized flow. \\
+Continuous flow & 极高产量、非离散产品。 & Very high volume, very low variety. \\
+Project & 非常规、一次性任务。 & One-of-a-kind, often fixed-position. \\
+\bottomrule
+\end{longtable}
+\source{Class 12, slides 11-15}
+
+\subsection{自动化 / Automation}
+\index{Automation}
+\begin{longtable}{@{}L{0.22\linewidth}L{0.36\linewidth}L{0.34\linewidth}@{}}
+\toprule
+\textbf{Type} & \textbf{中文} & \textbf{English} \\
+\midrule
+Fixed automation & 高产量低变化，重大变化成本高。 & Low cost at high volume, minimal variety, costly to change. \\
+Programmable automation & 通用设备由计算机程序控制，适合小批量多品种。 & Computer-controlled general equipment for low-volume variety. \\
+Flexible automation & 更广品种、中高产量，结合 CNC/CAM/CIM。 & Economically produces wider variety in medium to large volumes. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Pros and cons / 优缺点}
+\begin{itemize}
+  \item Pros: low variability, fewer labor issues, lower variable cost.
+  \item Cons: high fixed cost, barrier to change, possible adverse morale/productivity effects.
+\end{itemize}
+
+\subsection{基础布局类型 / Basic Layout Types}
+\label{subsec:layouts}
+\index{Product layout}
+\index{Process layout}
+\index{Fixed-position layout}
+\index{Cellular layout}
+
+\begin{longtable}{@{}L{0.22\linewidth}L{0.34\linewidth}L{0.36\linewidth}@{}}
+\toprule
+\textbf{Layout} & \textbf{中文} & \textbf{English exam cue} \\
+\midrule
+Product layout & 按产品加工顺序排列，适合标准化、高产量。 & Sequential arrangement, high output, low unit cost, vulnerable to shutdowns. \\
+Process layout & 按功能/部门分组，适合多样化加工。 & Functional grouping, flexible, routing/scheduling/material handling complex. \\
+Fixed-position layout & 产品/项目不移动，人、材料、设备移动。 & Product stays stationary due to weight, size, or bulk. \\
+Cellular layout & 把机器组成 cell，处理相似零件族。 & Group technology, combines flow improvement with some flexibility. \\
+\bottomrule
+\end{longtable}
+\source{Class 12, slides 28-39; Class 13, slides 4-9}
+
+\exam{若题目说 hospital，一般偏 process layout；若说 automobile assembly，偏 product layout；若说 infrastructure project，偏 fixed-position layout。}
+
+\subsection{生产线平衡 / Line Balancing}
+\label{subsec:line-balancing}
+\index{Line balancing}
+\index{Cycle time}
+
+\term{Line balancing}{生产线平衡}: assigning tasks to workstations so that workstation time requirements are approximately equal.\\
+\source{Class 13, slides 11-30}
+
+\[
+\text{Output rate}=\frac{OT}{CT}, \qquad CT=\frac{OT}{D}
+\]
+\[
+N_{\min}=\left\lceil\frac{\sum t_i}{CT}\right\rceil
+\]
+\[
+\text{Percent idle time}=\frac{\text{Idle time per cycle}}{N\times CT}, \qquad
+\text{Efficiency}=1-\text{Percent idle time}
+\]
+
+\textbf{Assignment procedure / 分配步骤}
+\begin{enumerate}
+  \item Determine cycle time and minimum number of workstations.
+  \item Draw or read the precedence diagram.
+  \item Start with Station 1 and move left to right.
+  \item Eligible task must have all predecessors assigned and must fit in remaining station time.
+  \item If no eligible task fits, move to next workstation.
+  \item After all tasks are assigned, compute idle time and efficiency.
+\end{enumerate}
+
+\textbf{Heuristic rules / 启发式规则}
+\begin{itemize}
+  \item Assign tasks in order of most following tasks.
+  \item Assign tasks in order of greatest positional weight.
+  \item Tie-breaker: longest task time or more followers.
+\end{itemize}
+
+\subsection{流程布局运输成本 / Process Layout Load-Distance Cost}
+\label{subsec:load-distance}
+\index{Load-distance cost}
+\[
+\text{Total cost}=\sum_{i<j}F_{ij}D_{ij}C_{ij}
+\]
+\begin{itemize}
+  \item $F_{ij}$: work flow between departments $i$ and $j$.
+  \item $D_{ij}$: distance between assigned locations.
+  \item $C_{ij}$: unit movement cost. If not given, treat as 1.
+\end{itemize}
+\exam{核心直觉：物流量大的部门放近，物流量小的部门可以放远。}
+
+\section{题型模板 / Exam Calculation Templates}
+\label{sec:templates}
+
+\subsection{预测计算模板 / Forecasting Template}
+\begin{enumerate}
+  \item Identify the method: naive, MA, WMA, exponential smoothing, trend, or regression.
+  \item Compute forecast values.
+  \item Build error table: $A$, $F$, $A-F$, $|A-F|$, $(A-F)^2$, $\left|\frac{A-F}{A}\right|100$.
+  \item Compute MAD, MSE, MAPE.
+  \item Select the method with lower error, unless the question asks for a specific method.
+\end{enumerate}
+
+\subsection{决策表模板 / Decision Table Template}
+\begin{enumerate}
+  \item Draw payoff table: alternatives as rows, states of nature as columns.
+  \item If probabilities are unknown, choose maximin/maximax/Laplace/minimax regret.
+  \item If probabilities are known, compute EMV for every alternative.
+  \item For EVPI, compute $A$ under perfect information and $B$ as best EMV.
+\end{enumerate}
+
+\subsection{产能与 BEP 模板 / Capacity and Break-even Template}
+\begin{enumerate}
+  \item Mark design capacity, effective capacity, actual output.
+  \item Compute efficiency and utilization with correct denominator.
+  \item For capacity cushion, compute $100\%-utilization$.
+  \item For CVP, write $TC=FC+vcQ$ and $TR=RQ$.
+  \item Solve $TR=TC$ for BEP, or $Profit=P_{target}$ for target-profit volume.
+\end{enumerate}
+
+\subsection{生产线平衡模板 / Line Balancing Template}
+\begin{enumerate}
+  \item Compute $CT=OT/D$.
+  \item Compute $N_{\min}=\lceil \sum t_i/CT\rceil$.
+  \item Draw precedence diagram.
+  \item Assign tasks by eligibility and heuristic rule.
+  \item Compute total available station time $N\times CT$.
+  \item Compute idle time, percent idle time, and efficiency.
+\end{enumerate}
+
+\section{高频易错点 / Common Pitfalls}
+\label{sec:pitfalls}
+
+\begin{enumerate}
+  \item \kw{Efficiency vs. utilization}: efficiency denominator is effective capacity; utilization denominator is design capacity.
+  \item \kw{MAD vs. MSE}: MAD is not square root of MSE.
+  \item \kw{Tracking signal}: use cumulative forecast error divided by MAD; large absolute value signals bias.
+  \item \kw{Maximin}: best of worst, not worst of best.
+  \item \kw{Minimax regret}: first build regret table by subtracting each payoff from the best payoff in its state column.
+  \item \kw{Decision tree}: read left to right, calculate right to left.
+  \item \kw{BEP}: denominator is contribution margin $R-vc$, not $R/VC$.
+  \item \kw{Capacity cushion}: if utilization is 72\%, cushion is 28\%.
+  \item \kw{Line balancing}: tasks cannot be assigned before predecessors are assigned, even if they fit time.
+  \item \kw{Process vs. product layout}: process layout is functional grouping; product layout is sequential flow.
+  \item \kw{Delayed differentiation}: means postponement of final customization, not full customization from the beginning.
+  \item \kw{Kano}: basic features prevent dissatisfaction but do not create much satisfaction when present.
+\end{enumerate}
+
+\section{一页术语表 / One-page Glossary}
+\label{sec:glossary}
+
+\begin{multicols}{2}
+\begin{itemize}
+  \item Operations management - 运营管理
+  \item Transformation process - 转化过程
+  \item System design decisions - 系统设计决策
+  \item System operation decisions - 系统运行决策
+  \item Trade-off - 权衡
+  \item Competitiveness - 竞争力
+  \item Order qualifiers - 订单资格要素
+  \item Order winners - 赢单要素
+  \item Productivity - 生产率
+  \item Forecasting - 预测
+  \item Moving average - 移动平均
+  \item Exponential smoothing - 指数平滑
+  \item MAD - 平均绝对偏差
+  \item MSE - 均方误差
+  \item MAPE - 平均绝对百分比误差
+  \item Tracking signal - 跟踪信号
+  \item Standardization - 标准化
+  \item Delayed differentiation - 延迟差异化
+  \item Modular design - 模块化设计
+  \item Reliability - 可靠性
+  \item Robust design - 稳健设计
+  \item FMEA - 失效模式与影响分析
+  \item FTA - 故障树分析
+  \item QFD - 质量功能展开
+  \item House of Quality - 质量屋
+  \item Kano model - Kano 模型
+  \item Decision theory - 决策理论
+  \item State of nature - 自然状态
+  \item Maximin - 最大最小准则
+  \item Maximax - 最大最大准则
+  \item Minimax regret - 最小最大后悔准则
+  \item EMV - 期望货币价值
+  \item EVPI - 完全信息期望价值
+  \item Design capacity - 设计产能
+  \item Effective capacity - 有效产能
+  \item Utilization - 利用率
+  \item Efficiency - 效率
+  \item Capacity cushion - 产能缓冲
+  \item Bottleneck - 瓶颈
+  \item Break-even point - 盈亏平衡点
+  \item Job shop - 作业车间
+  \item Batch - 批量流程
+  \item Continuous flow - 连续流程
+  \item Product layout - 产品布局
+  \item Process layout - 流程布局
+  \item Fixed-position layout - 固定位置布局
+  \item Cellular layout - 单元布局
+  \item Line balancing - 生产线平衡
+\end{itemize}
+\end{multicols}
+
+\clearpage
+\renewcommand{\indexname}{LaTeX 术语索引 / LaTeX Term Index}
+\addcontentsline{toc}{section}{LaTeX 术语索引 / LaTeX Term Index}
+\printindex
+
+\end{document}

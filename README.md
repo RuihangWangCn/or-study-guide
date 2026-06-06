@@ -1,5 +1,5 @@
-# OR Study Guide
+# OR Open-book Exam Guide
 
-Static bilingual study guide for Operations Research and Information System Management.
+Static bilingual open-book exam guide for Operations Research and Information System Management.
 
 Published with GitHub Pages.

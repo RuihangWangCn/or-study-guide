@@ -159,6 +159,46 @@ h1 {
   gap: 12px;
 }
 
+.hero-downloads {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-link {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--indigo);
+  font-size: 0.92rem;
+  font-weight: 760;
+}
+
+.primary-link {
+  border-color: var(--indigo);
+  background: var(--indigo);
+  color: var(--surface);
+}
+
+.action-link:hover,
+.action-link:focus-visible {
+  border-color: rgba(0, 124, 124, 0.45);
+  color: var(--teal);
+  outline: none;
+}
+
+.primary-link:hover,
+.primary-link:focus-visible {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: var(--surface);
+}
+
 .search-wrap {
   min-width: min(100%, 360px);
   height: 46px;
@@ -324,6 +364,51 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.index-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 230px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 12px 28px rgba(32, 41, 51, 0.045);
+}
+
+.index-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.index-meta strong {
+  color: var(--indigo);
+  line-height: 1.25;
+}
+
+.slide-pill {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--teal-soft);
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 780;
+}
+
+.index-card p {
+  margin-bottom: 12px;
+  color: var(--muted);
 }
 
 .lecture-card {
@@ -581,6 +666,7 @@ h1 {
   }
 
   .stats,
+  .index-grid,
   .lecture-grid,
   .formula-grid,
   .checklist-grid,
@@ -620,8 +706,14 @@ h1 {
 
   .hero-actions,
   .search-wrap,
-  .segmented {
+  .segmented,
+  .hero-downloads {
     width: 100%;
+  }
+
+  .hero-downloads {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .segmented {
@@ -633,6 +725,7 @@ h1 {
   }
 
   .stats,
+  .index-grid,
   .lecture-grid,
   .formula-grid,
   .checklist-grid,

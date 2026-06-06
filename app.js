@@ -8,6 +8,99 @@ const modules = [
   { id: "layout", label: "Layout" }
 ];
 
+const examIndex = [
+  {
+    keywords: "forecast, demand, moving average, exponential smoothing, trend",
+    route: "Forecasting / 预测",
+    answer: "选方法 -> 算预测值 -> 建误差表 -> 用 MAD/MSE/MAPE 比较",
+    slides: "Class 4-5"
+  },
+  {
+    keywords: "MAD, MSE, MAPE, tracking signal, bias, control chart",
+    route: "Forecast Accuracy / 预测误差",
+    answer: "e = A - F -> 绝对值/平方/百分比 -> tracking signal 判断 bias",
+    slides: "Class 5"
+  },
+  {
+    keywords: "maximin, maximax, Laplace, regret, minimax regret",
+    route: "Decision under Uncertainty / 不确定性决策",
+    answer: "先写收益表 -> 每个方案求准则值 -> 按决策态度选最佳",
+    slides: "Class 9"
+  },
+  {
+    keywords: "probability, risk, EMV, decision tree, backward induction",
+    route: "Decision under Risk / 风险决策",
+    answer: "每方案 EMV = sum probability x payoff -> 决策树从右往左回推",
+    slides: "Class 9"
+  },
+  {
+    keywords: "EVPI, perfect information, expected value of perfect information",
+    route: "EVPI / 完全信息价值",
+    answer: "A = 各状态最佳收益的期望值, B = max EMV, EVPI = A - B",
+    slides: "Class 9"
+  },
+  {
+    keywords: "capacity, utilization, efficiency, design capacity, effective capacity",
+    route: "Capacity Measures / 产能度量",
+    answer: "先区分 design/effective/actual；efficiency 用 effective，utilization 用 design",
+    slides: "Class 10"
+  },
+  {
+    keywords: "BEP, break-even, fixed cost, variable cost, make or buy",
+    route: "Cost-volume / 成本-产量分析",
+    answer: "写 TC, TR, Profit -> 令两边相等 -> 求临界产量或利润量",
+    slides: "Class 11"
+  },
+  {
+    keywords: "bottleneck, constraint, capacity cushion, lead, follow, track",
+    route: "Capacity Strategy / 产能策略",
+    answer: "瓶颈决定系统产出；扩张策略分 leading, following, tracking",
+    slides: "Class 10-11"
+  },
+  {
+    keywords: "standardization, delayed differentiation, modular design, reliability",
+    route: "Product Design / 产品设计",
+    answer: "说明目标、优点、风险；可靠性强调规定条件下正常工作",
+    slides: "Class 6"
+  },
+  {
+    keywords: "FMEA, FTA, value analysis, QFD, House of Quality, Kano",
+    route: "Quality Design Tools / 质量设计工具",
+    answer: "FMEA 找故障模式；FTA 找原因路径；QFD 把顾客声音转规格",
+    slides: "Class 7"
+  },
+  {
+    keywords: "service blueprint, high-contact, low-contact, service package",
+    route: "Service Design / 服务设计",
+    answer: "列服务概念、服务包、流程顺序、接触点、潜在失败点",
+    slides: "Class 8"
+  },
+  {
+    keywords: "job shop, batch, repetitive, continuous, project, automation",
+    route: "Process Selection / 流程选择",
+    answer: "用产品多样性、柔性、产量判断流程类型",
+    slides: "Class 12"
+  },
+  {
+    keywords: "product layout, process layout, fixed-position, cellular layout",
+    route: "Facility Layout / 设施布局",
+    answer: "产品布局按顺序；流程布局按功能；固定位置用于项目；单元布局按相似加工需求",
+    slides: "Class 12-13"
+  },
+  {
+    keywords: "line balancing, cycle time, minimum stations, idle time, efficiency",
+    route: "Line Balancing / 生产线平衡",
+    answer: "算 CT -> N_min -> 按前置关系分站 -> 算 idle time 和 efficiency",
+    slides: "Class 13"
+  },
+  {
+    keywords: "load-distance, process layout cost, flow, distance",
+    route: "Load-distance Cost / 布局运输成本",
+    answer: "Total cost = sum flow x distance x unit cost；物流量大的部门应更近",
+    slides: "Class 13"
+  }
+];
+
 const lectures = [
   {
     id: 1,
@@ -214,6 +307,7 @@ const state = {
 };
 
 const moduleFilters = document.querySelector("#moduleFilters");
+const keywordIndexGrid = document.querySelector("#keywordIndexGrid");
 const lectureGrid = document.querySelector("#lectureGrid");
 const formulaGrid = document.querySelector("#formulaGrid");
 const checklistGrid = document.querySelector("#checklistGrid");
@@ -241,6 +335,34 @@ function lectureMatches(lecture) {
     .join(" ")
     .toLowerCase();
   return byModule && haystack.includes(state.query.toLowerCase());
+}
+
+function indexMatches(item) {
+  const haystack = [item.keywords, item.route, item.answer, item.slides].join(" ").toLowerCase();
+  return haystack.includes(state.query.toLowerCase());
+}
+
+function renderKeywordIndex() {
+  keywordIndexGrid.innerHTML =
+    examIndex
+      .filter(indexMatches)
+      .map((item) => {
+        const keywords = item.keywords
+          .split(", ")
+          .map((keyword) => `<span class="term-chip">${keyword}</span>`)
+          .join("");
+        return `
+          <article class="index-card">
+            <div class="index-meta">
+              <strong>${item.route}</strong>
+              <span class="slide-pill">${item.slides}</span>
+            </div>
+            <p>${item.answer}</p>
+            <div class="terms">${keywords}</div>
+          </article>
+        `;
+      })
+      .join("") || `<article class="index-card"><h3>No results</h3><p>没有匹配内容。</p></article>`;
 }
 
 function renderLectures() {
@@ -304,6 +426,7 @@ function renderChecklist() {
 
 function renderAll() {
   renderFilters();
+  renderKeywordIndex();
   renderLectures();
   renderFormulas();
   renderChecklist();
@@ -329,6 +452,7 @@ document.querySelectorAll(".mode-btn").forEach((button) => {
 
 searchInput.addEventListener("input", (event) => {
   state.query = event.target.value.trim();
+  renderKeywordIndex();
   renderLectures();
 });
 
